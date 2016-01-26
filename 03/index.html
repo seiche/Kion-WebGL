@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>2D Rectangles</title>
+		<script type="text/javascript" src="lib/webgl-utils.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+		<script type="x-shader/x-vertex">
+			attribute vec2 a_position;
+			uniform vec2 u_resolution;
+
+			void main(){
+				vec2 zeroToOne = a_position / u_resolution;
+				vec2 zeroToTwo = zeroToOne * 2.0;
+				vec2 clipSpace = zeroToTwo - 1.0;
+				gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
+			}
+		</script>
+		<script type="x-shader/x-fragment">
+			precision mediump float;
+
+			uniform vec4 u_color;
+			void main(){
+				gl_FragColor = u_color;
+			}
+		</script>
+	</head>
+	<body>
+		<canvas id="canvas" width="400" height="300"></canvas>
+	</body>
+</html>
